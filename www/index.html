@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+<head>
+
+    <title>BattleShip App</title>
+    <meta name="author" content="Oscar Caparros">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="battleship-app" content="yes" />    
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
+    <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+    <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>
+        <!-- Inicializamos el archivo js -->
+    <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+        
+    <script type="text/javascript" src="cordova.js"></script> 
+
+
+</head>
+
+<body>
+    <div id="splashscreen" class='ui-loader heavy'>
+        App Framework
+        <br>
+        <br>
+        <span class='ui-icon ui-icon-loading spin'></span>
+        <h1>Starting app</h1>
+    </div>
+
+    <div class="view splitview">
+        
+        <header>
+            <a class="menuButton" data-left-menu="left" data-transition="cover" style="float:left"></a>
+            <h1>Title</h1>
+        </header>
+        
+        <div class="pages">
+            <div class="panel" id="inicio" data-title="Inicio" data-selected="true">
+                Página de Inicio
+                <br>
+                <img src="img/battleshipMaincra.jpg" width="100%">
+            </div>
+            <div class="fondo panel" id="partida" data-title="Partida">
+                Ahora estás en partida
+            </div>
+            <div class="panel" id="puntuaciones" data-title="Puntuaciones">
+                Mejores puntuaciones en partidas
+            </div>
+            <div class="panel" id="creditos" odata-title="Creditos">
+                Créditos de la aplicación
+                <h3>Bibliografía</h3>
+                <ul>
+                    <li><a href="https://i.ytimg.com/vi/syTLh93ZL74/maxresdefault.jpg">Barco Inicio</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <nav id="left">
+            <div class="view active">
+                <header>
+                    <h1>Menú</h1>
+                </header>
+                <div class="pages">
+                    <div class="panel active" id="navPage1" data-title="Menu">
+                        <ul class="list">
+                            <li><a href="#inicio" onclick="$.afui.clearHistory()">Página de Inicio</a></li>
+                            <li><a href="#partida" onclick="$.afui.clearHistory(); crearPartida(8,8);">Partida</a></li>
+                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory()">Mejores puntuaciones</a></li>
+                            <li><a href="#creditos" onclick="$.afui.clearHistory()">Créditos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</body>
+
+</html>

@@ -178,7 +178,7 @@ function generarTablero(){
     for(var i=0; i<filas; i++){
         html += '<tr>';
             for(var j=0; j<columnas; j++){
-                html += '<td id="celda_'+i+'_'+j+'" class="vacio" onclick=disparo("celda_'+i+'_'+j+'",'+i+','+j+'")></td>';
+                html += '<td id="celda_'+i+'_'+j+'" class="vacio" onclick=disparo("celda_'+i+'_'+j+'",'+i+','+j+')></td>';
             }
         html += "</tr>";
     }
@@ -240,8 +240,11 @@ function disparo(celda,i,j){
             break;
         default:
             break;
+
     }
 }
 
-
+/**
+        
+            */
 

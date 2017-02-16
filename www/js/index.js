@@ -10,7 +10,9 @@ var columnas = null;
 //Variable global para almacenar el tablero
 //La matriz del tablero
 var tablero = null;
-
+var segundos;
+var timer;
+var disparos;
 //Funcion onReady para saber que la página/aplicación está preparada
 $(document).ready(function(){
     //Código para el localstorage que usaremos para guardar la partida
@@ -42,11 +44,22 @@ $(document).ready(function(){
             columnas = 8;
             localStorage.setItem("columnas", 8);
         }
+        segundos = parseInt(localStorage.getItem("segundos"));
+        if(isNaN(segundos)){
+            segundos = 30;
+            localStorage.setItem("segundos", 30);
+        }
     
-        console.log(barcos);
-        console.log(columnas);
-        console.log(filas);
-        
+        disparos = parseInt(localStorage.getItem("disparos"));
+        if(isNaN(disparos)){
+            disparos = 34;
+            localStorage.setItem("disparos", 34);
+        }
+    
+        console.log("Nº barcos: "+barcos);
+        console.log("Nº columnas: "+columnas);
+        console.log("Nº filas: "+filas);
+        console.log("Nº segundos: "+segundos);
     
 });
   
@@ -108,11 +121,6 @@ function moneda(){
 }
 
 /**
-
-*/
-
-
-/**
 * Codificación para el tablero:
 * a = agua
 * s = submarino (3)
@@ -168,24 +176,58 @@ function colocarBarcos(tablero){ //Tablero(matriz), barcos(arrays_barcos[tam][le
     }
         
 }
- 
+
 /**
     Creamos una funcion para generar un tablero y dar imagen a los barcos.
 */
 function generarTablero(){
-    var html = '<table>';
-    
+    var html = '<table id="tabla">';
     for(var i=0; i<filas; i++){
         html += '<tr>';
             for(var j=0; j<columnas; j++){
-                html += '<td id="celda_'+i+'_'+j+'" class="vacio" onclick=disparo("celda_'+i+'_'+j+'",'+i+','+j+')></td>';
+                html += '<td id="celda_'+i+'_'+j+'" class="vacio" onclick=disparo("celda_'+i+'_'+j+'",'+i+','+j+');></td>';
             }
         html += "</tr>";
     }
     
     html += "</table>";
+    html += '<audio id="audio" src="audio/gotaAgua.mp3" preload="none"></audio>';
+    html += '<p id="timer"></p><p id="disparos">Disparos restantes: 30</p>';
+    document.getElementById("tablero").innerHTML = html;
     
-    document.getElementById("partida").innerHTML = html;
+}
+/**
+    Creamos una funcion que cada vez que pulse sobre una celda te quite un disparo.
+*/
+var contador = 30;
+function limpiarContador(){
+    contador = 30;
+}
+function contadorDisparos(numero){
+    disparos = disparos - numero;
+    if(disparos>0){
+        document.getElementById("disparos").innerHTML = "Disparos restantes: "+disparos;
+    }
+    else{
+        document.getElementById("disparos").innerHTML = "¡NO TE QUEDAN MÁS DISPAROS!";
+    }
+}
+/** 
+    Creamos un timer para la cuenta atrás dentro de las partidas
+*/
+function callbackTimer(){
+    segundos = 30;
+    timer = document.getElementById("timer");
+    window.setInterval(function(){
+      if(segundos>0){
+          timer.innerHTML = "Tiempo restante: "+segundos;
+          segundos--;
+      }else{
+          timer.innerHTML = "TIEMPO AGOTADO";
+          clearInterval(timer);
+      }
+
+    },1000);
 }
 
 /**
@@ -201,17 +243,26 @@ function crearPartida(filas, columnas){
     //Volcar la matriz a consola.
     matriz2console(tablero);
     generarTablero();
+    //Arrancamos el timer------------------->.
+    callbackTimer();
+    //Limpiamos el contador
+    limpiarContador();
+    //Actualizamos las cajas del tiempo y disparos
+    $("#disparos").html(disparos+"misiles");
+    $("#tiempo").html(segundos+"tiempo");
 }
 
 /**
     Creamos la funcion disparo
 */
 function disparo(celda,i,j){
+    disparos--;
     switch(tablero[i][j]){
         case 'a':
             tablero[i][j] = 'A';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('agua');
+            document.getElementById('audio').play();
             break;
         case 'b':
             tablero[i][j] = 'B';
@@ -239,12 +290,8 @@ function disparo(celda,i,j){
             $("#"+celda).addClass('destructor');
             break;
         default:
+            disparos++;
             break;
 
     }
 }
-
-/**
-        
-            */
-

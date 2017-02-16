@@ -1,8 +1,21 @@
+.informacion{
+    text-align: center;
+    background-color: azure;
+    border: solid red;
+}
 #partida{
     background-image: url(../img/fondo.png);
     background-repeat: repeat;
     width: 100%;
     height: 100%;
+}
+#timer{
+    color: red;
+    font-family: fantasy;
+    font-size: 20;
+}
+#tabla{
+    border-collapse: collapse;
 }
 .vacio{
     background-image: url("../img/vacio.jpg");

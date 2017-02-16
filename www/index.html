@@ -12,6 +12,10 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+     
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" href="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        
     <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
     <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -49,8 +53,15 @@
                 <br>
                 <img src="img/battleshipMaincra.jpg" width="100%">
             </div>
-            <div class="fondo panel" id="partida" data-title="Partida">
-                Ahora estás en partida
+            <div class="panel container" id="partida" data-title="Partida">
+                <div class="row"> <!-- Esta caja para el tiempo y los disparos -->
+                    <div id="tiempo" class="col-xs-5 informacion">JS no soportado</div>
+                    <div id="pausa" class="col-xs-2 informacion">=</div>
+                    <div id="disparos" class="col-xs-5 informacion">JS no soportado</div>
+                </div>
+                <div id="tablero"> <!-- Esta caja para el tablero del juego -->
+                
+                </div>
             </div>
             <div class="panel" id="puntuaciones" data-title="Puntuaciones">
                 Mejores puntuaciones en partidas
@@ -74,7 +85,7 @@
                         <ul class="list">
                             <li><a href="#inicio" onclick="$.afui.clearHistory()">Página de Inicio</a></li>
                             <li><a href="#partida" onclick="$.afui.clearHistory(); crearPartida(8,8);">Partida</a></li>
-                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory()">Mejores puntuaciones</a></li>
+                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory(); document.getElementById('audio').play();">Mejores puntuaciones</a></li>
                             <li><a href="#creditos" onclick="$.afui.clearHistory()">Créditos</a></li>
                         </ul>
                     </div>

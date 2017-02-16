@@ -14,7 +14,8 @@ var segundos;
 var timer;
 var disparos;
 //Funcion onReady para saber que la página/aplicación está preparada
-$(document).ready(function(){
+function cargarConfiguracion(){
+    $(document).ready(function(){
     //Código para el localstorage que usaremos para guardar la partida
     // ¿Hay localstorage dispobible? (Almacenamos la configuracion alli)
     if (typeof(Storage) !== "undefined") {
@@ -62,6 +63,7 @@ $(document).ready(function(){
         console.log("Nº segundos: "+segundos);
     
 });
+}
   
 /**
     Esta funcion crea una matriz (en JS es un Array de Arrays).
@@ -192,38 +194,21 @@ function generarTablero(){
     
     html += "</table>";
     html += '<audio id="audio" src="audio/gotaAgua.mp3" preload="none"></audio>';
-    html += '<p id="timer"></p><p id="disparos">Disparos restantes: 30</p>';
     document.getElementById("tablero").innerHTML = html;
     
-}
-/**
-    Creamos una funcion que cada vez que pulse sobre una celda te quite un disparo.
-*/
-var contador = 30;
-function limpiarContador(){
-    contador = 30;
-}
-function contadorDisparos(numero){
-    disparos = disparos - numero;
-    if(disparos>0){
-        document.getElementById("disparos").innerHTML = "Disparos restantes: "+disparos;
-    }
-    else{
-        document.getElementById("disparos").innerHTML = "¡NO TE QUEDAN MÁS DISPAROS!";
-    }
 }
 /** 
     Creamos un timer para la cuenta atrás dentro de las partidas
 */
 function callbackTimer(){
     segundos = 30;
-    timer = document.getElementById("timer");
+    timer = document.getElementById("tiempo");
     window.setInterval(function(){
       if(segundos>0){
           timer.innerHTML = "Tiempo restante: "+segundos;
           segundos--;
       }else{
-          timer.innerHTML = "TIEMPO AGOTADO";
+          $("#tiempo").html("¡Tiempo agotado!");
           clearInterval(timer);
       }
 
@@ -235,6 +220,7 @@ function callbackTimer(){
 */
 
 function crearPartida(filas, columnas){
+    cargarConfiguracion();
     //Crear una matriz de filas * columnas.
     tablero = crearMatriz(filas, columnas);
     //Rellenar la matriz con caracter a.
@@ -245,11 +231,9 @@ function crearPartida(filas, columnas){
     generarTablero();
     //Arrancamos el timer------------------->.
     callbackTimer();
-    //Limpiamos el contador
-    limpiarContador();
     //Actualizamos las cajas del tiempo y disparos
-    $("#disparos").html(disparos+"misiles");
-    $("#tiempo").html(segundos+"tiempo");
+    $("#disparos").html("Disparos disponibles: "+disparos);
+    $("#tiempo").html("Tiempo disponible: "+segundos+" segundos");
 }
 
 /**
@@ -257,6 +241,7 @@ function crearPartida(filas, columnas){
 */
 function disparo(celda,i,j){
     disparos--;
+    if(disparos>0 && segundos>0){
     switch(tablero[i][j]){
         case 'a':
             tablero[i][j] = 'A';
@@ -294,4 +279,12 @@ function disparo(celda,i,j){
             break;
 
     }
+    $("#disparos").html(disparos+" disparos restantes.");
+    }else{
+        if(disparos<=0)
+            $("#disparos").html("¡Disparos agotados!");
+        if(segundos<=0)
+            $("#tiempo").html("¡Tiempo agotado!");
+    }
+    
 }

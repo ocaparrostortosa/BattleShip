@@ -67,10 +67,27 @@
                 Mejores puntuaciones en partidas
             </div>
             <div class="panel" id="formulario" data-title="Tus puntos">
-                Formulario para meter nuestro nombre.
-                (Cuando acabo una partida)
-                Puntos.
-                Tiempo.
+                <h2>¡Bienvenido al salón de la fama!</h2>
+                <div class="container-fluid">
+                 <form class="form-inline">
+                  <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre">
+                  </div>
+                     <br>
+                  <div class="form-group">
+                    <label for="puntos">Puntuación:</label>
+                    <input type="text" class="form-control" id="puntos" disabled>
+                  </div>
+                     <br>
+                  <div class="from-group">
+                    <label for="tiempo">Tiempo:</label>
+                    <input type="text" class="form-control" id="segundos" disabled>
+                  </div>
+                     <br>
+                  <div class="btn btn-default" onclick="guardarPuntos()">Aceptar</div>
+                </form>
+                </div>
             </div>
             <div class="panel" id="creditos" odata-title="Creditos">
                 Créditos de la aplicación

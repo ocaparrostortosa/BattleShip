@@ -13,6 +13,7 @@ var tablero = null;
 var segundos;
 var timer;
 var disparos;
+var aciertos = 0;
 //Funcion onReady para saber que la página/aplicación está preparada
 function cargarConfiguracion(){
     $(document).ready(function(){
@@ -209,7 +210,7 @@ function callbackTimer(){
           segundos--;
       }else{
           $("#tiempo").html("¡Tiempo agotado!");
-          clearInterval(timer);
+          
       }
 
     },1000);
@@ -220,6 +221,7 @@ function callbackTimer(){
 */
 
 function crearPartida(filas, columnas){
+    aciertos = 0;
     cargarConfiguracion();
     //Crear una matriz de filas * columnas.
     tablero = crearMatriz(filas, columnas);
@@ -240,8 +242,9 @@ function crearPartida(filas, columnas){
     Creamos la funcion disparo
 */
 function disparo(celda,i,j){
-    disparos--;
     if(disparos>0 && segundos>0){
+        disparos--;
+        aciertos++;
     switch(tablero[i][j]){
         case 'a':
             tablero[i][j] = 'A';
@@ -276,15 +279,73 @@ function disparo(celda,i,j){
             break;
         default:
             disparos++;
+            aciertos--;
             break;
 
     }
     $("#disparos").html(disparos+" disparos restantes.");
     }else{
-        if(disparos<=0)
+        if(disparos<=0){
             $("#disparos").html("¡Disparos agotados!");
-        if(segundos<=0)
+            terminarPartida();
+        }
+        if(segundos<=0){
             $("#tiempo").html("¡Tiempo agotado!");
+            terminarPartida();
+        }
     }
     
+}
+function terminarPartida(){
+    //Calcular los puntos
+    $("#puntos").val(aciertos*disparos*1000+segundos*500);
+    $("#segundos").val(segundos);
+    //Parar el timer (por disparos = 0 o hayamos hundido los barcos)
+    clearInterval(timer);
+    //Mostrar el diálogo para guardar los puntos
+    $.afui.clearHistory();
+    $.afui.loadContent("#formulario",false,false,"up");
+}
+
+function guardarPuntos(){
+    // Cargamos los marcadores de localStorage
+    var marcadores = JSON.parse(localStorage.getItem("marcadores"));
+    // Si no existe, lo inicializamos.
+    if (marcadores === null) {
+        marcadores = [];        
+    }
+    
+    // Ejemplo de cómo leer de un formulario a JSON
+    var puntuacion = {
+        "Nombre": $("#nombre").val(),
+        "Puntos": $("#puntos").val(),
+        "Tiempo": $("#segundos").val()
+    };
+    // Introducimos la puntuación en el array.
+    marcadores.push(puntuacion);
+    
+    localStorage.setItem("marcadores",JSON.stringify(marcadores));
+    mostrarPuntos();
+}
+
+function mostrarPuntos(){
+    $("#puntuaciones").empty();
+    // Cargamos los marcadores de localStorage
+    var marcadores = JSON.parse(localStorage.getItem("marcadores"));
+    // Si no existe, no hacemos nada.
+    var tabla = $("<table border='1px solid black'/>");
+    tabla.append("<th>nombre</th>","<th>puntos</th>","<th>tiempo</th>");
+    if (marcadores !== null) {
+        for (var jugador in marcadores) {
+            var tr = $("<tr />");
+            tr.append("<td>"+marcadores[jugador].Nombre+"</td>");
+            tr.append("<td>"+marcadores[jugador].Puntos+"</td>");
+            tr.append("<td>"+marcadores[jugador].Tiempo+"</td>");
+            tabla.append(tr);
+        }
+    }
+    $("#puntuaciones").append(tabla);
+    
+    $.afui.clearHistory();
+    $.afui.loadContent("#puntuaciones",false,false,"up");
 }

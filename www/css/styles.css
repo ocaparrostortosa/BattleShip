@@ -1,6 +1,7 @@
 .informacion{
     text-align: center;
     background-color: azure;
+    color: blue;
     border: solid red;
 }
 #partida{

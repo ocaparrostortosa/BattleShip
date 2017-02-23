@@ -210,6 +210,7 @@ function callbackTimer(){
           segundos--;
       }else{
           $("#tiempo").html("¡Tiempo agotado!");
+          terminarPartida();
           
       }
 
@@ -285,13 +286,13 @@ function disparo(celda,i,j){
     }
     $("#disparos").html(disparos+" disparos restantes.");
     }else{
+        terminarPartida();
         if(disparos<=0){
             $("#disparos").html("¡Disparos agotados!");
-            terminarPartida();
         }
         if(segundos<=0){
             $("#tiempo").html("¡Tiempo agotado!");
-            terminarPartida();
+            
         }
     }
     
@@ -349,3 +350,37 @@ function mostrarPuntos(){
     $.afui.clearHistory();
     $.afui.loadContent("#puntuaciones",false,false,"up");
 }
+/**
+
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable");
+  switching = true;
+
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
+*/

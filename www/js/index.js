@@ -62,6 +62,7 @@ function cargarConfiguracion(){
         console.log("Nº columnas: "+columnas);
         console.log("Nº filas: "+filas);
         console.log("Nº segundos: "+segundos);
+        console.log("Nº disparos: "+disparos);
     
 });
 }
@@ -132,52 +133,48 @@ function moneda(){
 * d = destructor (4)
 * b = buque (3)
 */
-function colocarBarcos(tablero){ //Tablero(matriz), barcos(arrays_barcos[tam][letra])
-    //Para saber la longitud del arrays de barcos y poner todos los barcos en la matriz
-    for(var i = 0; i<barcos.length;i++){
+function colocarBarcos(matriz){
+    //Compruebo que haya más de ocho filas y que la primera fila(igual a las demás) sean más de 8 columnas.
+    var fila, col;
+    var direccion;
+    for (var i=0; i<barcos.length;i++){
         var barco = barcos[i];
         var libre;
-        //do-while para saber la dirección del barco(horizontal/vertical) y saber si la celda
-        //se encuentra libre
-        do{
-            libre = true;
-            var direccion = moneda();
-            //Para saber la dirección (0 = Horizontal / 1 = Vertical)
-            if( direccion === 0){ //Horizontal
-                var x = dado(tablero.length-1);
-                var y = dado(tablero[x].length - (barco.tam) ); //Para no salirnos del tablero
-                //Para saber si la celda está libre
-                for(var cont_Y = 0; cont_Y < barco.tam; cont_Y++){
-                    if(tablero[x][cont_Y+y] !== 'a'){
-                        libre = false;
+        do { 
+            // intento colocar el barco hasta 
+            // que encuentro espacio libre para él
+            libre=true;
+            direccion = moneda();
+            if (direccion===0) { // horizontal 
+                fila = dado(matriz.length);
+                col = dado(matriz[fila].length-barco.tam);
+                for (j=0; j<barco.tam;j++){
+                    if(matriz[fila][j+col]!='a') {
+                        libre=false;
                     }
                 }
-                //Para colocar la letra del barco en la celda
-                if(libre === true){
-                    for(var cont_Y2 = 0; cont_Y2 < barco.tam; cont_Y2++){
-                        tablero[x] [(cont_Y2+y)] = barco.letra;
+                if (libre) {
+                   for (j=0; j<barco.tam;j++){
+                        matriz[fila][j+col]=barco.letra+j+direccion;
+                   }
+                }
+            } else { // vertical
+                fila = dado(matriz.length-barco.tam);
+                col = dado(matriz[fila].length);
+                for (j=0; j<barco.tam;j++){
+                    if(matriz[j+fila][col]!='a') {
+                        libre=false;
                     }
                 }
-                        
-            } 
-            else { //Vertical
-                var x2 = dado(tablero.length - (barco.tam));
-                var y2 = dado(tablero[x2].length);
-                //Para saber si la celda está libre
-                for(var cont_X = 0; cont_X < barco.tam ; cont_X++){
-                    if(tablero[cont_X+x2][y2] !== 'a'){
-                        libre = false;
-                    }
+                if (libre) {
+                   for (var j=0; j<barco.tam;j++){
+                        matriz[j+fila][col]=barco.letra+j+direccion;
+                   }
                 }
-                //Y para colocar la letra
-                for(var cont_X2 = 0; cont_X2 < barco.tam; cont_X2++){
-                    tablero[cont_X2+x2][y2] = barco.letra;
-                }
-              }
-        }                                
-        while(libre !== true); //Hacer el do hasta que los barcos estén colocados
+            }
+        } while (!libre);
     }
-        
+    
 }
 
 /**
@@ -194,7 +191,13 @@ function generarTablero(){
     }
     
     html += "</table>";
-    html += '<audio id="audio" src="audio/gotaAgua.mp3" preload="none"></audio>';
+    html += '<audio id="audio" src="aud/oceano.mp3" preload="none"></audio>';
+    //Sonido para los barcos
+    html += '<audio id="audFragata" src="aud/fragata.mp3" preload="none"></audio>'; //Fragata
+    html += '<audio id="audSubmarino" src="aud/submarino.mp3" preload="none"></audio>'; //Submarino
+    html += '<audio id="audBuque" src="aud/buque.mp3" preload="none"></audio>'; //Buque
+    html += '<audio id="audDestructor" src="aud/destructor.mp3" preload="none"></audio>'; //Destructor
+    html += '<audio id="audPortaviones" src="aud/portaviones.mp3" preload="none"></audio>'; //Portaviones
     document.getElementById("tablero").innerHTML = html;
     
 }
@@ -202,19 +205,15 @@ function generarTablero(){
     Creamos un timer para la cuenta atrás dentro de las partidas
 */
 function callbackTimer(){
-    segundos = 30;
-    timer = document.getElementById("tiempo");
-    window.setInterval(function(){
-      if(segundos>0){
-          timer.innerHTML = "Tiempo restante: "+segundos;
-          segundos--;
-      }else{
-          $("#tiempo").html("¡Tiempo agotado!");
-          terminarPartida();
-          
-      }
-
-    },1000);
+    // segundos = 30;
+    //timer = document.getElementById("tiempo");
+    if(segundos>0){
+      $("#tiempo").html("Tiempo restante: "+segundos);
+      segundos--;
+    }else{
+      $("#tiempo").html("¡Tiempo agotado!");
+      terminarPartida();  
+    }
 }
 
 /**
@@ -222,6 +221,7 @@ function callbackTimer(){
 */
 
 function crearPartida(filas, columnas){
+    segundos = 30;
     aciertos = 0;
     cargarConfiguracion();
     //Crear una matriz de filas * columnas.
@@ -233,7 +233,8 @@ function crearPartida(filas, columnas){
     matriz2console(tablero);
     generarTablero();
     //Arrancamos el timer------------------->.
-    callbackTimer();
+    clearInterval(timer);
+    timer = setInterval(callbackTimer,1000);
     //Actualizamos las cajas del tiempo y disparos
     $("#disparos").html("Disparos disponibles: "+disparos);
     $("#tiempo").html("Tiempo disponible: "+segundos+" segundos");
@@ -253,40 +254,225 @@ function disparo(celda,i,j){
             $("#"+celda).addClass('agua');
             document.getElementById('audio').play();
             break;
-        case 'b':
+        //Buque
+        case 'b00':
             tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
-            $("#"+celda).addClass('buque');
+            $("#"+celda).addClass('b00');
+            document.getElementById('audBuque').play();
             break;
-        case 'p':
-            tablero[i][j] = 'P';
+        case 'b10':
+            tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
-            $("#"+celda).addClass('portaviones');
+            $("#"+celda).addClass('b10');
+            document.getElementById('audBuque').play();
             break;
-        case 'f':
-            tablero[i][j] = 'F';
+        case 'b20':
+            tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
-            $("#"+celda).addClass('fragata');
+            $("#"+celda).addClass('b20');
+            document.getElementById('audBuque').play();
             break;
-        case 's':
+        case 'b01':
+            tablero[i][j] = 'B';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('b01');
+            document.getElementById('audBuque').play();
+            break;
+        case 'b11':
+            tablero[i][j] = 'B';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('b11');
+            document.getElementById('audBuque').play();
+            break;
+        case 'b21':
+            tablero[i][j] = 'B';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('b21');
+            document.getElementById('audBuque').play();
+            break;
+        //Submarino
+        case 's00':
             tablero[i][j] = 'S';
             $("#"+celda).removeClass('vacio');
-            $("#"+celda).addClass('submarino');
+            $("#"+celda).addClass('s00');
+            document.getElementById('audSubmarino').play();
             break;
-        case 'd':
+        case 's10':
+            tablero[i][j] = 'S';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('s10');
+            document.getElementById('audSubmarino').play();
+            break;
+        case 's20':
+            tablero[i][j] = 'S';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('s20');
+            document.getElementById('audSubmarino').play();
+            break;
+        case 's01':
+            tablero[i][j] = 'S';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('s01');
+            document.getElementById('audSubmarino').play();
+            break;
+        case 's11':
+            tablero[i][j] = 'S';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('s11');
+            document.getElementById('audSubmarino').play();
+            break;
+        case 's21':
+            tablero[i][j] = 'S';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('s21');
+            document.getElementById('audSubmarino').play();
+            break;
+        //Portaviones
+         case 'p00':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p00');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p10':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p10');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p20':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p20');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p30':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p30');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p40':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p40');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p01':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p01');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p11':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p11');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p21':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p21');
+            document.getElementById('audPortaviones').play();
+            break;
+        case 'p31':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p31');
+            document.getElementById('audPortaviones').play();
+            break;   
+        case 'p41':
+            tablero[i][j] = 'P';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('p41');
+            document.getElementById('audPortaviones').play();
+            break; 
+            //Fragata
+        case 'f00':
+            tablero[i][j] = 'F';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('f00');
+            document.getElementById('audFragata').play();
+            break;
+        case 'f10':
+            tablero[i][j] = 'F';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('f10');
+            document.getElementById('audFragata').play();
+            break;
+        case 'f01':
+            tablero[i][j] = 'F';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('f01');
+            document.getElementById('audFragata').play();
+            break;
+        case 'f11':
+            tablero[i][j] = 'F';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('f11');
+            document.getElementById('audFragata').play();
+            break;
+            //Destructor
+        case 'd00':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
-            $("#"+celda).addClass('destructor');
+            $("#"+celda).addClass('d00');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd10':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d10');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd20':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d20');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd30':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d30');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd01':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d01');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd11':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d11');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd21':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d21');
+            document.getElementById('audDestructor').play();
+            break;
+        case 'd31':
+            tablero[i][j] = 'D';
+            $("#"+celda).removeClass('vacio');
+            $("#"+celda).addClass('d31');
+            document.getElementById('audDestructor').play();
             break;
         default:
             disparos++;
             aciertos--;
             break;
-
     }
     $("#disparos").html(disparos+" disparos restantes.");
     }else{
-        terminarPartida();
+        if(disparos<=0 || segundos <= 0){
+            terminarPartida();    
+        }        
         if(disparos<=0){
             $("#disparos").html("¡Disparos agotados!");
         }
@@ -334,8 +520,8 @@ function mostrarPuntos(){
     // Cargamos los marcadores de localStorage
     var marcadores = JSON.parse(localStorage.getItem("marcadores"));
     // Si no existe, no hacemos nada.
-    var tabla = $("<table border='1px solid black'/>");
-    tabla.append("<th>nombre</th>","<th>puntos</th>","<th>tiempo</th>");
+    var tabla = $("<table id='tablaPuntuaciones' border='1px solid black'/>");
+    tabla.append("<th onclick='sortTable(0)'>nombre</th>","<th onclick='sortTable(1)'>puntos</th>","<th onclick='sortTable(2)'>tiempo</th>");
     if (marcadores !== null) {
         for (var jugador in marcadores) {
             var tr = $("<tr />");
@@ -346,28 +532,27 @@ function mostrarPuntos(){
         }
     }
     $("#puntuaciones").append(tabla);
-    
     $.afui.clearHistory();
     $.afui.loadContent("#puntuaciones",false,false,"up");
 }
-/**
 
-function sortTable() {
+//Funcion para organizar la tabla
+function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch;
-  table = document.getElementById("myTable");
+  table = document.getElementById("tablaPuntuaciones");
   switching = true;
 
   while (switching) {
     //start by saying: no switching is done:
     switching = false;
-    rows = table.getElementsByTagName("TR");
+    rows = table.getElementsByTagName("tr");
 
-    for (i = 1; i < (rows.length - 1); i++) {
+    for (i = 1; i < (rows.length-1); i++) {
       //start by saying there should be no switching:
       shouldSwitch = false;
 
-      x = rows[i].getElementsByTagName("TD")[0];
-      y = rows[i + 1].getElementsByTagName("TD")[0];
+      x = rows[i].getElementsByTagName("td")[n];
+      y = rows[i + 1].getElementsByTagName("td")[n];
       //check if the two rows should switch place:
       if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
         //if so, mark as a switch and break the loop:
@@ -377,10 +562,8 @@ function sortTable() {
     }
     if (shouldSwitch) {
 
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      rows[i].parentNode.insertBefore(rows[i+1], rows[i]);
       switching = true;
     }
   }
 }
-
-*/

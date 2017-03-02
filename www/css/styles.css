@@ -4,19 +4,25 @@
     color: blue;
     border: solid red;
 }
-#partida{
-    background-image: url(../img/fondo.png);
-    background-repeat: repeat;
-    width: 100%;
-    height: 100%;
+h1{
+    margin: 1px;
 }
 #timer{
     color: red;
     font-family: fantasy;
     font-size: 20;
 }
+#partida{
+    background-image: url(../img/fondo.png);
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+}
 #tabla{
     border-collapse: collapse;
+    background-image: url(../img/Agua/agua.gif);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 .vacio{
     background-image: url("../img/vacio.jpg");
@@ -49,7 +55,7 @@
     height: 4em;
 }
 .agua{
-    background-image: url("../img/agua.png");
+    background-image: url("../img/Agua/aguaTransparente.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     width: 4em;
@@ -63,7 +69,252 @@
     height: 4em;
 }
 .destructor{
-    background-image: url("../img/destructor.jpg");
+    background-image: url("../img/destructor.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+/** CSS Para el buque */
+.b00{
+    background-image: url("../img/Buque/b00.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.b10{
+    background-image: url("../img/Buque/b10.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.b20{
+    background-image: url("../img/Buque/b20.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.b01{
+    background-image: url("../img/Buque/b01.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.b11{
+    background-image: url("../img/Buque/b11.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.b21{
+    background-image: url("../img/Buque/b21.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+
+/** CSS Para el destructor */
+.d00{
+    background-image: url("../img/Destructor/d00.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d10{
+    background-image: url("../img/Destructor/d10.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d20{
+    background-image: url("../img/Destructor/d20.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d30{
+    background-image: url("../img/Destructor/d30.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d01{
+    background-image: url("../img/Destructor/d01.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d11{
+    background-image: url("../img/Destructor/d11.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d21{
+    background-image: url("../img/Destructor/d21.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.d31{
+    background-image: url("../img/Destructor/d31.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+/** CSS Para la fragata */
+.f00{
+    background-image: url("../img/Fragata/f00.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.f10{
+    background-image: url("../img/Fragata/f10.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.f01{
+    background-image: url("../img/Fragata/f01.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.f11{
+    background-image: url("../img/Fragata/f11.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+
+/** CSS Para el submarino */
+.s00{
+    background-image: url("../img/Submarino/s00.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.s10{
+    background-image: url("../img/Submarino/s10.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.s20{
+    background-image: url("../img/Submarino/s20.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.s01{
+    background-image: url("../img/Submarino/s01.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.s11{
+    background-image: url("../img/Submarino/s11.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.s21{
+    background-image: url("../img/Submarino/s21.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+/** CSS Para el portaviones */
+.p00{
+    background-image: url("../img/Portaviones/p00.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p10{
+    background-image: url("../img/Portaviones/p10.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p20{
+    background-image: url("../img/Portaviones/p20.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p30{
+    background-image: url("../img/Portaviones/p30.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p40{
+    background-image: url("../img/Portaviones/p40.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p01{
+    background-image: url("../img/Portaviones/p01.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p11{
+    background-image: url("../img/Portaviones/p11.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p21{
+    background-image: url("../img/Portaviones/p21.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p31{
+    background-image: url("../img/Portaviones/p31.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+.p41{
+    background-image: url("../img/Portaviones/p41.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     width: 4em;

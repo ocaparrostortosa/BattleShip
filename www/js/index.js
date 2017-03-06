@@ -520,50 +520,23 @@ function mostrarPuntos(){
     // Cargamos los marcadores de localStorage
     var marcadores = JSON.parse(localStorage.getItem("marcadores"));
     // Si no existe, no hacemos nada.
-    var tabla = $("<table id='tablaPuntuaciones' border='1px solid black'/>");
-    tabla.append("<th onclick='sortTable(0)'>nombre</th>","<th onclick='sortTable(1)'>puntos</th>","<th onclick='sortTable(2)'>tiempo</th>");
+    var tabla = $("<table id='tablaPuntuaciones' border='1px solid black' class='tablesorter'/>");
+    tabla.append("<thead><th>nombre</th><th>puntos</th><th>tiempo</th></thead>");
     if (marcadores !== null) {
+        var tbody = $("<tbody/>");
         for (var jugador in marcadores) {
             var tr = $("<tr />");
             tr.append("<td>"+marcadores[jugador].Nombre+"</td>");
             tr.append("<td>"+marcadores[jugador].Puntos+"</td>");
             tr.append("<td>"+marcadores[jugador].Tiempo+"</td>");
-            tabla.append(tr);
+            tbody.append(tr);
         }
-    }
+        tabla.append(tbody);
+    } 
     $("#puntuaciones").append(tabla);
+    //cuando la página se cargue convertimos la tabla con id "simple" en una tabla ordenable
+    $("#tablaPuntuaciones").tablesorter({ sortList: [[1,1], [0,0]] });
     $.afui.clearHistory();
     $.afui.loadContent("#puntuaciones",false,false,"up");
-}
-
-//Funcion para organizar la tabla
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch;
-  table = document.getElementById("tablaPuntuaciones");
-  switching = true;
-
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.getElementsByTagName("tr");
-
-    for (i = 1; i < (rows.length-1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-
-      x = rows[i].getElementsByTagName("td")[n];
-      y = rows[i + 1].getElementsByTagName("td")[n];
-      //check if the two rows should switch place:
-      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-        //if so, mark as a switch and break the loop:
-        shouldSwitch= true;
-        break;
-      }
-    }
-    if (shouldSwitch) {
-
-      rows[i].parentNode.insertBefore(rows[i+1], rows[i]);
-      switching = true;
-    }
-  }
+    
 }

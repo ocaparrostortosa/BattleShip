@@ -22,11 +22,16 @@
 
     <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+        <!-- Ordenar tabla -->
+    <script type="text/javascript" charset="utf-8" src="js/jquery.tablesorter.min.js"></script>
+        
     <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>
         <!-- Inicializamos el archivo js -->
     <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
         
     <script type="text/javascript" src="cordova.js"></script> 
+    
+    
 
 
 </head>
@@ -96,7 +101,16 @@
                 </ul>
             </div>
             <div class="panel" id="configuracion" data-title="Configuracion">
-                Página de configuración de la aplicación.
+                <h2>Configuración de la aplicación</h2>
+                 <form action="/action_page.php">
+                  First name:<br>
+                  <input type="text" name="firstname" value="Mickey">
+                  <br>
+                  Last name:<br>
+                  <input type="text" name="lastname" value="Mouse">
+                  <br><br>
+                  <input type="submit" value="Submit">
+                </form> 
             </div>
         </div>
 
@@ -110,7 +124,7 @@
                         <ul class="list">
                             <li><a href="#inicio" onclick="$.afui.clearHistory()">Página de Inicio</a></li>
                             <li><a href="#partida" onclick="$.afui.clearHistory(); crearPartida(8,8);">Partida</a></li>
-                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory(); document.getElementById('audio').play();">Mejores puntuaciones</a></li>
+                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory();mostrarPuntos()">Mejores puntuaciones</a></li>
                             <li><a href="#configuracion" onclick="$.afui.clearHistory()">Configuración</a></li>
                             <li><a href="#creditos" onclick="$.afui.clearHistory()">Créditos</a></li>
                         </ul>

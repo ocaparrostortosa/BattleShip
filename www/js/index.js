@@ -239,6 +239,7 @@ function callbackTimer(){
 
 function crearPartida(){
     numeroBarcos = 0;
+    aciertosBarcos = 0;
     segundos = 30;
     aciertos = 0;
     cargarConfiguracion();
@@ -261,13 +262,12 @@ function crearPartida(){
 /**
     Creamos la funcion disparo
 */
+var aciertosBarcos = 0;
 function disparo(celda,i,j){
     if(disparos>0 && segundos>0){
-        console.log("Nº disparos " + disparos);
-        console.log("Nº barcos "+numeroBarcos);
         disparos--;
         aciertos++;
-        mostrarVictoria();
+        console.log(aciertosBarcos);
     switch(tablero[i][j]){
         case 'a':
             tablero[i][j] = 'A';
@@ -281,36 +281,42 @@ function disparo(celda,i,j){
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('b00');
             document.getElementById('audBuque').play();
+            aciertosBarcos++;
             break;
         case 'b10':
             tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('b10');
             document.getElementById('audBuque').play();
+            aciertosBarcos++;
             break;
         case 'b20':
             tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('b20');
             document.getElementById('audBuque').play();
+            aciertosBarcos++;
             break;
         case 'b01':
             tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('b01');
             document.getElementById('audBuque').play();
+            aciertosBarcos++;
             break;
         case 'b11':
             tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('b11');
             document.getElementById('audBuque').play();
+            aciertosBarcos++;
             break;
         case 'b21':
             tablero[i][j] = 'B';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('b21');
             document.getElementById('audBuque').play();
+            aciertosBarcos++;
             break;
         //Submarino
         case 's00':
@@ -318,36 +324,42 @@ function disparo(celda,i,j){
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('s00');
             document.getElementById('audSubmarino').play();
+            aciertosBarcos++;
             break;
         case 's10':
             tablero[i][j] = 'S';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('s10');
             document.getElementById('audSubmarino').play();
+            aciertosBarcos++;
             break;
         case 's20':
             tablero[i][j] = 'S';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('s20');
             document.getElementById('audSubmarino').play();
+            aciertosBarcos++;
             break;
         case 's01':
             tablero[i][j] = 'S';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('s01');
             document.getElementById('audSubmarino').play();
+            aciertosBarcos++;
             break;
         case 's11':
             tablero[i][j] = 'S';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('s11');
             document.getElementById('audSubmarino').play();
+            aciertosBarcos++;
             break;
         case 's21':
             tablero[i][j] = 'S';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('s21');
             document.getElementById('audSubmarino').play();
+            aciertosBarcos++;
             break;
         //Portaviones
          case 'p00':
@@ -355,60 +367,70 @@ function disparo(celda,i,j){
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p00');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p10':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p10');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p20':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p20');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p30':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p30');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p40':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p40');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p01':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p01');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p11':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p11');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p21':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p21');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;
         case 'p31':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p31');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break;   
         case 'p41':
             tablero[i][j] = 'P';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('p41');
             document.getElementById('audPortaviones').play();
+            aciertosBarcos++;
             break; 
             //Fragata
         case 'f00':
@@ -416,24 +438,28 @@ function disparo(celda,i,j){
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('f00');
             document.getElementById('audFragata').play();
+            aciertosBarcos++;
             break;
         case 'f10':
             tablero[i][j] = 'F';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('f10');
             document.getElementById('audFragata').play();
+            aciertosBarcos++;
             break;
         case 'f01':
             tablero[i][j] = 'F';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('f01');
             document.getElementById('audFragata').play();
+            aciertosBarcos++;
             break;
         case 'f11':
             tablero[i][j] = 'F';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('f11');
             document.getElementById('audFragata').play();
+            aciertosBarcos++;
             break;
             //Destructor
         case 'd00':
@@ -441,54 +467,63 @@ function disparo(celda,i,j){
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d00');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd10':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d10');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd20':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d20');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd30':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d30');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd01':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d01');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd11':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d11');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd21':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d21');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         case 'd31':
             tablero[i][j] = 'D';
             $("#"+celda).removeClass('vacio');
             $("#"+celda).addClass('d31');
             document.getElementById('audDestructor').play();
+            aciertosBarcos++;
             break;
         default:
             disparos++;
             aciertos--;
             break;
     }
+    mostrarVictoria();
     $("#disparos").html(disparos+" disparos restantes.");
     }else{
         if(disparos<0 || segundos < 0){
@@ -652,7 +687,7 @@ function crudBarcos(){
 //Funcion que acabará la partida si descubrimos todos los barcos.
 
 function mostrarVictoria(){
-    if(aciertos == numeroBarcos){
+    if(aciertosBarcos == numeroBarcos){
         terminarPartida();
         numeroBarcos = 0;
     }
@@ -662,6 +697,7 @@ function cambiarDePagina(){
     document.getElementById('audio').pause();
     clearInterval(timer);
     numeroBarcos = 0;
+    aciertosBarcos = 0;
 }
 
 //Funcion que mediante el callback recoge el valor del tiempo lo para y lo reinicia según el gusto del usuario.

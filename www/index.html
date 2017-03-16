@@ -101,7 +101,7 @@
                 </ul>
             </div>
             <div class="panel" id="configuracion" data-title="Configuracion">
-                <h2>Configuración de la aplicación</h2>
+                <h1>Configuración de la aplicación</h1>
                 <div class="container">
                     <form>
                         <!-- <label for="" >First name:</label>
@@ -133,78 +133,83 @@
                         -->
                         <h4>Configuración de los barcos:</h4>
                         <div class="form-group">
-                            <label for="numeroFragatas">Numero de Fragatas:</label>
+                            <label for="numeroFragatas" class="label">Numero de Fragatas:</label>
                             <input class="form-control input-sm" id="numeroFragatas" type="number" min="0" max="5" placeholder="(0-5)">
                         </div>
                         <div class="form-group">
-                            <label for="numeroBuques">Numero de Buques:</label>
+                            <label for="numeroBuques" class="label">Numero de Buques:</label>
                             <input class="form-control input-sm" id="numeroBuques" type="number" min="0" max="5" placeholder="(0-5)" required>
                         </div>
                         <div class="form-group">
-                            <label for="numeroDestructores">Numero de Destructores:</label>
+                            <label for="numeroDestructores" class="label">Numero de Destructores:</label>
                             <input class="form-control input-sm" id="numeroDestructores" type="number" min="0" max="5" placeholder="(0-5)" required>
                         </div>
                         <div class="form-group">
-                            <label for="numeroPortaviones">Numero de Portaviones:</label>
+                            <label for="numeroPortaviones" class="label">Numero de Portaviones:</label>
                             <input class="form-control input-sm" id="numeroPortaviones" type="number" min="0" max="5" placeholder="(0-5)" required>
                         </div>
                         <div class="form-group">
-                            <label for="numeroSubmarinos">Numero de Submarinos:</label>
+                            <label for="numeroSubmarinos" class="label">Numero de Submarinos:</label>
                             <input class="form-control input-sm" id="numeroSubmarinos" type="number" min="0" max="5" placeholder="(0-5)" required>   
                         </div>                    
-                       <h1 class="btn btn-default" onclick="guardarConfiguracion();">Guardar</h1>
-                        <h2 class="btn btn-default" onclick="limpiarLocalStorage();">Limpiar localstorage</h2>
+                        <div class="container">
+                            <button class="btn btn-default" onclick="guardarConfiguracion();">Guardar</button>
+                            <button class="btn btn-default" onclick="establecerConfiguracionPredeterminada();">Configuración predeterminada</button>
+                        </div>
                         <br>
                  </form>
                 </div>
                 <br>
                 <div class="container-row" id="porDefecto">
+                    <form>
                     <fieldset>
                         <legend><h1>Configuración actual</h1></legend>
+                    <span style="color: grey;">El tiempo, los disparos, las filas y las columnas se establecerán de forma automática dependiendo del número de barcos introducidos por el usuario. En caso de que no se introduzcan barcos la configuración general será automática.</span>  
+                        <br>
                     <div class="col-xs-6"  id="porDefecto1">
                     <h4>Configuración general:</h4>
-                    <span style="color: grey;">El tiempo, los disparos, las filas y las columnas se establecerán de forma automática dependiendo del número de barcos introducidos por el usuario. En caso de que no se introduzcan barcos la configuración general será automática.</span>
-                        <div class="form-group">
-                            <label for="tiempoJuego2">Tiempo de juego:</label>
-                            <input class="form-control input-sm" id="tiempoJuego2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroDisparos2">Número de disparos:</label>
-                            <input class="form-control input-sm" id="numeroDisparos2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroFilas2">Número de filas:</label>
-                            <input class="form-control input-sm" id="numeroFilas2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroColumnas2">Número de columnas:</label>
-                            <input class="form-control input-sm" id="numeroColumnas2" type="number" disabled>
-                        </div>
+                        <br>
+                        <form>
+                            <div class="form-group">
+                            <label for="tiempoJuego2" class="label">Tiempo de juego:</label>
+                                <input id="tiempoJuego2" class="input" type="textarea" disabled>
+                            <br>
+                            <label for="numeroDisparos2" class="label">Número de disparos:</label>
+                                <input id="numeroDisparos2" class="input" type="textarea" disabled>
+                            <br>
+                            <label for="numeroFilas2" class="label">Número de filas:</label>
+                                <input id="numeroFilas2" class="input" type="textarea" disabled>
+                             <br>
+                            <label for="numeroColumnas2" class="label">Número de columnas:</label>
+                                <input id="numeroColumnas2" class="input" type="textarea" disabled>
+                             <br>
+                            </div>
+                        </form>
                     </div> 
                     <div class="col-xs-6" id="porDefecto2">
                         <h4>Configuración de los barcos:</h4>
-                        <div class="form-group">
-                            <label for="numeroFragatas2">Numero de Fragatas:</label>
-                            <input class="form-control input-sm" class="form-control input-sm" id="numeroFragatas2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroBuques2">Numero de Buques:</label>
-                            <input class="form-control input-sm" id="numeroBuques2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroDestructores2">Numero de Destructores:</label>
-                            <input class="form-control input-sm" id="numeroDestructores2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroPortaviones2">Numero de Portaviones:</label>
-                            <input class="form-control input-sm" id="numeroPortaviones2" type="number" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroSubmarinos2">Numero de Submarinos:</label>
-                            <input class="form-control input-sm" id="numeroSubmarinos2" type="number" disabled>   
-                        </div> 
+                        <form>
+                            <div class="form-group">
+                            <label for="numeroFragatas2" class="label">Numero de Fragatas:</label>
+                                <input id="numeroFragatas2" class="input" type="textarea" disabled>
+                            <br>
+                            <label for="numeroBuques2" class="label">Numero de Buques:</label>
+                                <input id="numeroBuques2" class="input" type="textarea" disabled>
+                            <br>
+                            <label for="numeroDestructores2" class="label">Numero de Destructores:</label>
+                                <input id="numeroDestructores2" class="input" type="textarea" disabled>
+                            <br>
+                            <label for="numeroPortaviones2" class="label">Numero de Portaviones:</label>
+                                <input id="numeroPortaviones2" class="input" type="textarea" disabled>
+                            <br>
+                            <label for="numeroSubmarinos2" class="label">Numero de Submarinos:</label>
+                                <input id="numeroSubmarinos2" class="input" type="textarea" disabled>   
+                            <br>
+                            </div>
+                        </form> 
                     </div>
                     </fieldset>
+                </form>
                 </div>
             </div>
         </div>

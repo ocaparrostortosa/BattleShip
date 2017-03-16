@@ -595,6 +595,8 @@ function guardarConfiguracion(){
         disparos = sumaTotal * 7;
         localStorage.setItem("disparos", disparos);
         
+    } else{
+        establecerConfiguracionPredeterminada();
     }
     cargarConfiguracionActual();
     crudBarcos();
@@ -612,6 +614,7 @@ function cargarConfiguracionActual(){
     $("#numeroPortaviones2").val(numeroPortaviones);
     $("#numeroSubmarinos2").val(numeroSubmarinos); 
 }
+
 
 function crudBarcos(){
     var i;
@@ -684,6 +687,25 @@ function pararJuegoReiniciarJuego(){
     }
 }
 
-function limpiarLocalStorage(){
-    localStorage.clear();
+function establecerConfiguracionPredeterminada(){
+    var barcos3 = [];
+    $("#tiempoJuego2").val("30");
+    localStorage.setItem("segundos", 30); 
+    $("#numeroDisparos2").val("34");
+    localStorage.setItem("disparos", 34);
+    $("#numeroFilas2").val("8");
+    localStorage.setItem("filas1", 8);
+    $("#numeroColumnas2").val("8");
+    localStorage.setItem("columnas", 8);
+    $("#numeroFragatas2").val("1");
+    barcos3.push({tam:2, letra:'f', nombre:'fragata'});
+    $("#numeroBuques2").val("1");
+    barcos3.push({"tam":3, letra:'b', nombre:'buque'});
+    $("#numeroDestructores2").val("1");
+    barcos3.push({tam:4, letra:'d', nombre:'destructor'});
+    $("#numeroPortaviones2").val("1");
+    barcos3.push({tam:5, letra:'p', nombre:'portaaviones'});
+    $("#numeroSubmarinos2").val("1"); 
+    barcos3.push({tam:3, letra:'s', nombre:'submarino'});
+    localStorage.setItem("barcos", JSON.stringify(barcos3));
 }

@@ -329,3 +329,23 @@ h1{
 .hidden {
     display: none;
 }
+
+.label{
+    text-align: left;
+    font-size: 100%;
+    color: black;
+    width: 90%;
+}
+
+.input{
+    width: 3em;
+    text-align: left;
+}
+
+#porDefecto1{
+    background-color: beige;
+}
+
+#porDefecto2{
+    background-color: azure;
+}

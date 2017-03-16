@@ -320,3 +320,12 @@ h1{
     width: 4em;
     height: 4em;
 }
+.enPausa{
+    background-image: url("../img/juegoEnPausa.gif");
+}
+.porDefecto{
+    background-color: green;
+}
+.hidden {
+    display: none;
+}

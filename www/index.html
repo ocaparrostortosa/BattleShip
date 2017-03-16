@@ -9,7 +9,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="battleship-app" content="yes" />    
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
      
@@ -60,7 +60,7 @@
             <div class="panel container" id="partida" data-title="Partida">
                 <div class="row"> <!-- Esta caja para el tiempo y los disparos -->
                     <div id="tiempo" class="col-xs-5 informacion">JS no soportado</div>
-                    <div id="pausa" class="col-xs-2 informacion">=</div>
+                    <div id="pausa" class="col-xs-2 informacion" onclick="pararJuegoReiniciarJuego();"><span id="botonPausa" class="porDefecto">Parar tiempo</span></div>
                     <div id="disparos" class="col-xs-5 informacion">JS no soportado</div>
                 </div>
                 <div id="tablero"> <!-- Esta caja para el tablero del juego -->
@@ -102,15 +102,110 @@
             </div>
             <div class="panel" id="configuracion" data-title="Configuracion">
                 <h2>Configuración de la aplicación</h2>
-                 <form action="/action_page.php">
-                  First name:<br>
-                  <input type="text" name="firstname" value="Mickey">
-                  <br>
-                  Last name:<br>
-                  <input type="text" name="lastname" value="Mouse">
-                  <br><br>
-                  <input type="submit" value="Submit">
-                </form> 
+                <div class="container">
+                    <form>
+                        <!-- <label for="" >First name:</label>
+                          <input type="text" name="firstname" value="Mickey" id="">
+                        <br>
+                        Last name:<br>
+                          <input type="text" name="lastname" value="Mouse">
+                        <br> -->
+                        
+                        <!-- Por si quisieramos modificar el tiempo/disparos/étc. -->
+                        
+                        <!-- <h4>Configuración general:</h4>
+                        <div class="form-group">
+                            <label for="tiempoJuego">Tiempo de juego:</label>
+                            <input class="form-control input-sm" id="tiempoJuego" type="number" min="10" max="300" placeholder="Ejemplo: 60 (segundos)">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDisparos">Número de disparos:</label>
+                            <input class="form-control input-sm" id="numeroDisparos" type="number" min="25" max="64" placeholder="Ejemplo: 25">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroFilas">Número de filas:</label>
+                            <input class="form-control input-sm" id="numeroFilas" type="number" min="8" max="20" placeholder="Ejemplo: 8">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroColumnas">Número de columnas:</label>
+                            <input class="form-control input-sm" id="numeroColumnas" type="number" min="8" max="20" placeholder="Ejemplo: 8">
+                        </div>
+                        -->
+                        <h4>Configuración de los barcos:</h4>
+                        <div class="form-group">
+                            <label for="numeroFragatas">Numero de Fragatas:</label>
+                            <input class="form-control input-sm" id="numeroFragatas" type="number" min="0" max="5" placeholder="(0-5)">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroBuques">Numero de Buques:</label>
+                            <input class="form-control input-sm" id="numeroBuques" type="number" min="0" max="5" placeholder="(0-5)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDestructores">Numero de Destructores:</label>
+                            <input class="form-control input-sm" id="numeroDestructores" type="number" min="0" max="5" placeholder="(0-5)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroPortaviones">Numero de Portaviones:</label>
+                            <input class="form-control input-sm" id="numeroPortaviones" type="number" min="0" max="5" placeholder="(0-5)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroSubmarinos">Numero de Submarinos:</label>
+                            <input class="form-control input-sm" id="numeroSubmarinos" type="number" min="0" max="5" placeholder="(0-5)" required>   
+                        </div>                    
+                       <h1 class="btn btn-default" onclick="guardarConfiguracion();">Guardar</h1>
+                        <h2 class="btn btn-default" onclick="limpiarLocalStorage();">Limpiar localstorage</h2>
+                        <br>
+                 </form>
+                </div>
+                <br>
+                <div class="container-row" id="porDefecto">
+                    <fieldset>
+                        <legend><h1>Configuración actual</h1></legend>
+                    <div class="col-xs-6"  id="porDefecto1">
+                    <h4>Configuración general:</h4>
+                    <span style="color: grey;">El tiempo, los disparos, las filas y las columnas se establecerán de forma automática dependiendo del número de barcos introducidos por el usuario. En caso de que no se introduzcan barcos la configuración general será automática.</span>
+                        <div class="form-group">
+                            <label for="tiempoJuego2">Tiempo de juego:</label>
+                            <input class="form-control input-sm" id="tiempoJuego2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDisparos2">Número de disparos:</label>
+                            <input class="form-control input-sm" id="numeroDisparos2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroFilas2">Número de filas:</label>
+                            <input class="form-control input-sm" id="numeroFilas2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroColumnas2">Número de columnas:</label>
+                            <input class="form-control input-sm" id="numeroColumnas2" type="number" disabled>
+                        </div>
+                    </div> 
+                    <div class="col-xs-6" id="porDefecto2">
+                        <h4>Configuración de los barcos:</h4>
+                        <div class="form-group">
+                            <label for="numeroFragatas2">Numero de Fragatas:</label>
+                            <input class="form-control input-sm" class="form-control input-sm" id="numeroFragatas2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroBuques2">Numero de Buques:</label>
+                            <input class="form-control input-sm" id="numeroBuques2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDestructores2">Numero de Destructores:</label>
+                            <input class="form-control input-sm" id="numeroDestructores2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroPortaviones2">Numero de Portaviones:</label>
+                            <input class="form-control input-sm" id="numeroPortaviones2" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroSubmarinos2">Numero de Submarinos:</label>
+                            <input class="form-control input-sm" id="numeroSubmarinos2" type="number" disabled>   
+                        </div> 
+                    </div>
+                    </fieldset>
+                </div>
             </div>
         </div>
 
@@ -122,11 +217,11 @@
                 <div class="pages">
                     <div class="panel active" id="navPage1" data-title="Menu">
                         <ul class="list">
-                            <li><a href="#inicio" onclick="$.afui.clearHistory()">Página de Inicio</a></li>
-                            <li><a href="#partida" onclick="$.afui.clearHistory(); crearPartida(8,8);">Partida</a></li>
-                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory();mostrarPuntos()">Mejores puntuaciones</a></li>
-                            <li><a href="#configuracion" onclick="$.afui.clearHistory()">Configuración</a></li>
-                            <li><a href="#creditos" onclick="$.afui.clearHistory()">Créditos</a></li>
+                            <li><a href="#inicio" onclick="$.afui.clearHistory(); cambiarDePagina();">Página de Inicio</a></li>
+                            <li><a href="#partida" onclick="$.afui.clearHistory(); crearPartida();">Partida</a></li>
+                            <li><a href="#puntuaciones" onclick="$.afui.clearHistory(); cambiarDePagina(); mostrarPuntos();">Mejores puntuaciones</a></li>
+                            <li><a href="#configuracion" onclick="$.afui.clearHistory(); cargarConfiguracionActual();  cambiarDePagina();">Configuración</a></li>
+                            <li><a href="#creditos" onclick="$.afui.clearHistory(); cambiarDePagina();">Créditos</a></li>
                         </ul>
                     </div>
                 </div>

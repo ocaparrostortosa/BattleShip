@@ -9,9 +9,9 @@ var barcos = null;
 //Variable global para almacenar el tablero
 //La matriz del tablero
 var tablero = null;
-
-var segundos = 30;
-var segundosPorDefecto = segundos;
+var segundosPorDefecto = 40;
+//var segundos = segundosPorDefecto;
+var segundos = 40;
 var timer;
 var disparos = 34;
 var aciertos = 0;
@@ -145,7 +145,6 @@ function moneda(){
 * d = destructor (4)
 * b = buque (3)
 */
-var numeroBarcos = 0;
 function colocarBarcos(matriz){
     //Compruebo que haya más de ocho filas y que la primera fila(igual a las demás) sean más de cargar columnas.
     var fila, col;
@@ -169,7 +168,6 @@ function colocarBarcos(matriz){
                 if (libre) {
                    for (j=0; j<barco.tam;j++){
                         matriz[fila][j+col]=barco.letra+j+direccion;
-                        numeroBarcos++;                       
                    }
                 }
             } else { // vertical
@@ -183,7 +181,6 @@ function colocarBarcos(matriz){
                 if (libre) {
                    for (var j=0; j<barco.tam;j++){
                         matriz[j+fila][col]=barco.letra+j+direccion;
-                        numeroBarcos++;
                    }
                 }
             }
@@ -219,14 +216,12 @@ function generarTablero(){
 /** 
     Creamos un timer para la cuenta atrás dentro de las partidas
 */
-var tiempoPartida;
 function callbackTimer(){
     // segundos = 30;
     //timer = document.getElementById("tiempo");
     if(segundos>0){
       $("#tiempo").html("Tiempo restante: "+segundos);
       segundos--;
-      tiempoPartida = segundos;
     }else{
       $("#tiempo").html("¡Tiempo agotado!");
       terminarPartida();  
@@ -238,7 +233,6 @@ function callbackTimer(){
 */
 
 function crearPartida(){
-    numeroBarcos = 0;
     segundos = 30;
     aciertos = 0;
     cargarConfiguracion();
@@ -263,11 +257,8 @@ function crearPartida(){
 */
 function disparo(celda,i,j){
     if(disparos>0 && segundos>0){
-        console.log("Nº disparos " + disparos);
-        console.log("Nº barcos "+numeroBarcos);
         disparos--;
         aciertos++;
-        mostrarVictoria();
     switch(tablero[i][j]){
         case 'a':
             tablero[i][j] = 'A';
@@ -491,13 +482,13 @@ function disparo(celda,i,j){
     }
     $("#disparos").html(disparos+" disparos restantes.");
     }else{
-        if(disparos<0 || segundos < 0){
+        if(disparos<=0 || segundos <= 0){
             terminarPartida();    
         }        
-        if(disparos<0){
+        if(disparos<=0){
             $("#disparos").html("¡Disparos agotados!");
         }
-        if(segundos<0){
+        if(segundos<=0){
             $("#tiempo").html("¡Tiempo agotado!");
             
         }
@@ -514,7 +505,7 @@ function terminarPartida(){
     $.afui.clearHistory();
     $.afui.loadContent("#formulario",false,false,"up");
 }
-var puntuacion;
+
 function guardarPuntos(){
     // Cargamos los marcadores de localStorage
     var marcadores = JSON.parse(localStorage.getItem("marcadores"));
@@ -524,7 +515,7 @@ function guardarPuntos(){
     }
     
     // Ejemplo de cómo leer de un formulario a JSON
-    puntuacion = {
+    var puntuacion = {
         "Nombre": $("#nombre").val(),
         "Puntos": $("#puntos").val(),
         "Tiempo": $("#segundos").val()
@@ -561,10 +552,7 @@ function mostrarPuntos(){
     $.afui.loadContent("#puntuaciones",false,false,"up");
     
 }
-
-
 function guardarConfiguracion(){
-    /** Por si quisieramos modificar el tiempo/disparos/etc
     segundosPorDefecto = $("#tiempoJuego").val();
     localStorage.setItem("segundos", segundosPorDefecto); 
     disparos = $("#numeroDisparos").val();
@@ -578,24 +566,11 @@ function guardarConfiguracion(){
         console.log("Nº filas: "+filas);
         console.log("Nº segundos: "+segundosPorDefecto);
         console.log("Nº disparos: "+disparos);
-    */
     numeroFragatas = $("#numeroFragatas").val();
     numeroBuques = $("#numeroBuques").val();
     numeroDestructores = $("#numeroDestructores").val();
     numeroPortaviones = $("#numeroPortaviones").val();
     numeroSubmarinos = $("#numeroSubmarinos").val();
-    var sumaTotal = parseInt(numeroBuques) + parseInt(numeroDestructores) + parseInt(numeroFragatas) + parseInt(numeroPortaviones) + parseInt(numeroSubmarinos);
-    if(sumaTotal > 0){
-        filas = sumaTotal + 3;
-        localStorage.setItem("filas1", filas);
-        columnas = sumaTotal + 3;
-        localStorage.setItem("columnas", columnas);
-        segundosPorDefecto = sumaTotal * 6;
-        localStorage.setItem("segundos", segundosPorDefecto); 
-        disparos = sumaTotal * 7;
-        localStorage.setItem("disparos", disparos);
-        
-    }
     cargarConfiguracionActual();
     crudBarcos();
 }
@@ -614,76 +589,42 @@ function cargarConfiguracionActual(){
 }
 
 function crudBarcos(){
+	//Solucionar el error de la longitud de la matriz.
+	//Hago dos arrays para no añadir barcos ni tener que eliminar barcos
+	//sino que se crea tal y como el usuario lo tiene.
     var i;
-    var barcos2 = [];
-    //barcos2 = JSON.parse(localStorage.getItem("barcos"));
+    var barcos2 = null;
+    localStorage.setItem("barcos2", barcos2);
+    barcos2 = JSON.parse(localStorage.getItem("barcos2"));
+    barcos2 = [];
+    barcos = JSON.parse(localStorage.getItem("barcos"));
     if(numeroBuques > 0){
         for(i = 0;i<numeroBuques;i++){
-            barcos2.push({"tam":3, letra:'b', nombre:'buque'}); //barcos2.push
+            barcos2.push("{tam:3, letra:'b', nombre:'buque'}"); //barcos2.push
         }
     }
     if(numeroFragatas > 0){
         for(i = 0;i<numeroFragatas;i++){
-            barcos2.push({tam:2, letra:'f', nombre:'fragata'});
+            barcos2.push("{tam:2, letra:'f', nombre:'fragata'}");
         }
     }
     if(numeroDestructores > 0){
         for(i = 0;i<numeroDestructores;i++){
-            barcos2.push({tam:4, letra:'d', nombre:'destructor'});
+            barcos2.push("{tam:4, letra:'d', nombre:'destructor'}");
         }
     }
     if(numeroSubmarinos > 0){
         for(i = 0;i<numeroSubmarinos;i++){
-            barcos2.push({tam:3, letra:'s', nombre:'submarino'});
+            barcos2.push("{tam:3, letra:'s', nombre:'submarino'}");
         }
     }
     if(numeroPortaviones > 0){
         for(i = 0;i<numeroPortaviones;i++){
-            barcos2.push({tam:5, letra:'p', nombre:'portaaviones'});
+            barcos2.push("{tam:5, letra:'p', nombre:'portaaviones'}");
         }
     }
     localStorage.setItem("barcos", JSON.stringify(barcos2));
-    console.log(localStorage.getItem("barcos"));    
-}
-
-//Funcion que acabará la partida si descubrimos todos los barcos.
-
-function mostrarVictoria(){
-    if(aciertos == numeroBarcos){
-        terminarPartida();
-        numeroBarcos = 0;
-    }
-}
-
-function cambiarDePagina(){
-    document.getElementById('audio').pause();
-    clearInterval(timer);
-    numeroBarcos = 0;
-}
-
-//Funcion que mediante el callback recoge el valor del tiempo lo para y lo reinicia según el gusto del usuario.
-function pararJuegoReiniciarJuego(){
-    var añadirHtml = "";
-    if($("#botonPausa").hasClass("porDefecto")){
-        console.log("Juego pausado");
-        clearInterval(timer);
-        añadirHtml = "Reanudar tiempo";
-        document.getElementById("botonPausa").innerHTML = añadirHtml;
-        $("#botonPausa").removeClass('porDefecto');
-        $("#botonPausa").addClass('enPausa');
-        $("#tabla").addClass('hidden');
-    } else{
-        console.log("Juego reanudado");
-        segundos = tiempoPartida;
-        timer = setInterval(callbackTimer,1000);
-        añadirHtml = "Parar tiempo";
-        document.getElementById("botonPausa").innerHTML = añadirHtml;
-        $("#botonPausa").removeClass('enPausa');
-        $("#botonPausa").addClass('porDefecto');
-        $("#tabla").removeClass('hidden');
-    }
-}
-
-function limpiarLocalStorage(){
-    localStorage.clear();
+    barcos = localStorage.getItem("barcos");
+    console.log(localStorage.getItem("barcos"));
+    
 }

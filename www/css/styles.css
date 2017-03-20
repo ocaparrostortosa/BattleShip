@@ -1,3 +1,4 @@
+/** Archivo que guarda los estilos para la aplicación de Óscar Caparrós (Hundir la flota). */
 .informacion{
     text-align: center;
     background-color: azure;
@@ -33,7 +34,7 @@ h1{
 th{
     background-color: darkgrey;
 }
-
+/** Celda vacía de la tabla */
 .vacio{
     background-image: url("../img/vacio.jpg");
     background-size: 100% 100%;
@@ -41,7 +42,7 @@ th{
     width: 4em;
     height: 4em;
 }
-
+/** -----------Estilo inicial para los barcos de la app. 
 .fragata{
     background-image: url("../img/fragata.png");
     background-size: 100% 100%;
@@ -63,14 +64,6 @@ th{
     background-repeat: no-repeat;
     width: 4em;
     height: 4em;
-}
-.agua{
-    background-image: url("../img/Agua/aguaTransparente.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    width: 4em;
-    height: 4em;
-}
 .submarino{
     background-image: url("../img/submarino.png");
     background-size: 100% 100%;
@@ -85,6 +78,16 @@ th{
     width: 4em;
     height: 4em;
 }
+}
+*/
+.agua{
+    background-image: url("../img/Agua/aguaTransparente.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+}
+
 /** CSS Para el buque */
 .b00{
     background-image: url("../img/Buque/b00.png");
@@ -330,6 +333,7 @@ th{
     width: 4em;
     height: 4em;
 }
+/** Diferentes estilos para divs y etiquetas de la app. */
 .enPausa{
     background-image: url("../img/juegoEnPausa.gif");
 }

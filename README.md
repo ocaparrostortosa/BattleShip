@@ -4,8 +4,9 @@ Esta aplicación fue creada por Óscar Caparrós Tortosa, resultado de un proyec
 
 Esta aplicación tan básica en HTML5/Javascript&Jquery fue creada mediante el [Intel App Framework](https://github.com/01org/appframework).
 
-Contacto: ocaparrostortosa@gmail.com
 ![Ies Virgen del Carmen](https://www.votatuprofesor.com/images/logo-centros/ies-virgen-del-carmen-logo.png)
+
+Contacto: ocaparrostortosa@gmail.com
 
 Intel(R) XDK
 -------------------------------------------

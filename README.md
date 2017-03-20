@@ -1,14 +1,11 @@
-Side Menu App
+Battleship App // Hundir la flota
 ==================
-This template can be used for simple app with side menu that can be opened to switch views, this template can be used for creating applications similar to Youtube* app or Gmail* app.
+Esta aplicación fue creada por Óscar Caparrós Tortosa, resultado de un proyecto de la asignatura LMSGI en el curso 2016/2017 de Desarrollo de Aplicaciones Multiplataforma en el I.E.S Virgen del Carmen (Jaén).
 
-This basic HTML5 mobile app template is created using [Intel App Framework](https://github.com/01org/appframework), which is a free and open source Javascript framework targeted at HTML5 Mobile browsers with a blazingly fast query selector library and Mobile UI framework for creating app with native like UI and performance.
+Esta aplicación tan básica en HTML5/Javascript&Jquery fue creada mediante el [Intel App Framework](https://github.com/01org/appframework).
 
-You can use Intel AppFramework to create __mobile web apps__ or create __hybrid apps__ using tools like [_Intel XDK_](http://xdk-software.intel.com/) or _Adobe Phonegap build_ to build native packaged apps.
-
-App Framework has UI themes which look and feel similar to _iPhone_, _iPad_, _Android_, _Windows Phone_, _Blackberry 10_ and _Tizen_, the UI theme will be automatically applied by default when opened on these devices. Notice the screenshots below, the app code is same but the look and feel changes to match the device's native style.
-
-![SideMenuApp](https://raw.github.com/gomobile/template-side-menu/master/screenshot.png)
+Contacto: ocaparrostortosa@gmail.com
+![Ies Virgen del Carmen](https://www.votatuprofesor.com/images/logo-centros/ies-virgen-del-carmen-logo.png)
 
 Intel(R) XDK
 -------------------------------------------

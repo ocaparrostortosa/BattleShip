@@ -539,6 +539,9 @@ function disparo(celda,i,j){
     }
     
 }
+/**
+    Función que lanza la puntuación y muestra en pantalla el div para guardar tu nombre y tu puntuación.
+*/
 function terminarPartida(){
     //Calcular los puntos
     $("#puntos").val(aciertos*disparos*1000+segundos*500);
@@ -550,6 +553,9 @@ function terminarPartida(){
     $.afui.loadContent("#formulario",false,false,"up");
 }
 var puntuacion;
+/**
+    Función que nos permite guardar el arrays de marcadores en el localstorage para guardar las puntuaciones.
+*/
 function guardarPuntos(){
     // Cargamos los marcadores de localStorage
     var marcadores = JSON.parse(localStorage.getItem("marcadores"));
@@ -571,13 +577,18 @@ function guardarPuntos(){
     mostrarPuntos();
 }
 
+var tabla;
+/**
+    Función que nos permitirá mostrar los puntos al usuario mediante la creación e inyeccion en el codigo
+    de una tabla.
+*/
 function mostrarPuntos(){
     $("#puntuaciones").empty();
     // Cargamos los marcadores de localStorage
     var marcadores = JSON.parse(localStorage.getItem("marcadores"));
     // Si no existe, no hacemos nada.
-    var tabla = $("<table id='tablaPuntuaciones' border='1px solid black' class='tablesorter'/>");
-    tabla.append("<thead><th>nombre</th><th>puntos</th><th>tiempo</th></thead>");
+    tabla = $("<table id='tablaPuntuaciones' class='tablesorter table table-bordered'/>");
+    tabla.append("<thead><th>Nombre</th><th>Puntuación</th><th>Tiempo</th></thead>");
     if (marcadores !== null) {
         var tbody = $("<tbody/>");
         for (var jugador in marcadores) {
@@ -591,12 +602,14 @@ function mostrarPuntos(){
     } 
     $("#puntuaciones").append(tabla);
     //cuando la página se cargue convertimos la tabla con id "simple" en una tabla ordenable
-    $("#tablaPuntuaciones").tablesorter({ sortList: [[1,1], [0,0]] });
+    $("#tablaPuntuaciones").tablesorter({ sortList: [[1,1], [0,0]] });              
     $.afui.clearHistory();
     $.afui.loadContent("#puntuaciones",false,false,"up");
     
 }
-
+/**
+    Funcion que nos permitirá guardar la configuración requerida por el usuario (nº barcos, filas, columnas, étc.) según un formulario.
+*/
 
 function guardarConfiguracion(){
     /** Por si quisieramos modificar el tiempo/disparos/etc
@@ -636,6 +649,9 @@ function guardarConfiguracion(){
     cargarConfiguracionActual();
     crudBarcos();
 }
+/**
+    Función que nos permite coger los valores del formulario y mostrarlos en otro formulario tipo "disabled" al usuario, sólo para información.
+*/
 function cargarConfiguracionActual(){
     clearInterval(timer);
     //Establecer valores
@@ -650,7 +666,10 @@ function cargarConfiguracionActual(){
     $("#numeroSubmarinos2").val(numeroSubmarinos); 
 }
 
-
+/**
+    Función que nos agregará a un nuevo arrays el número de barcos que el usuario haya insertado en el formulario
+    y dicho contenido del nuevo arrays lo guardaremos en el localstorage de "barcos".
+*/
 function crudBarcos(){
     var i;
     var barcos2 = [];
@@ -693,6 +712,9 @@ function mostrarVictoria(){
     }
 }
 
+/**
+    Al cambiar de página tenía los problemas de audio que se seguía reproduciendo y el tiempo no se paraba, con esta función conseguí arreglarlo.
+*/
 function cambiarDePagina(){
     document.getElementById('audio').pause();
     clearInterval(timer);
@@ -723,6 +745,9 @@ function pararJuegoReiniciarJuego(){
     }
 }
 
+/**
+    Esta función permite al usuario en la pantalla de configuración elegir los valores predeterminados por la aplicación para jugar (tiempo, disparos, barcos, étc.). Se activará mediante un botón en la configuración.
+*/
 function establecerConfiguracionPredeterminada(){
     var barcos3 = [];
     $("#tiempoJuego2").val("30");

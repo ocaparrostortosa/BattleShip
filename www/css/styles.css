@@ -24,6 +24,16 @@ h1{
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+
+#tablaPuntuaciones{
+    border: 1px solid black;
+    width: 40%;
+    border-collapse: collapse;
+}
+th{
+    background-color: darkgrey;
+}
+
 .vacio{
     background-image: url("../img/vacio.jpg");
     background-size: 100% 100%;
@@ -348,4 +358,19 @@ h1{
 
 #porDefecto2{
     background-color: azure;
+}
+
+.textoCreditos{
+    text-align: center;
+    color: blue;
+}
+
+.listaCreditos{
+    margin-left: 5%;
+    
+}
+
+.elementoUl{
+    text-decoration: none;
+    font-size: 1.1em;
 }

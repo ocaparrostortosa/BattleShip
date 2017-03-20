@@ -68,7 +68,9 @@
                 </div>
             </div>
             <div class="panel" id="puntuaciones" data-title="Puntuaciones">
-                Mejores puntuaciones en partidas
+                No tienes puntuaciones ;(
+                <br>
+                ¡Juega para poder ver las mejores puntuaciones!
             </div>
             <div class="panel" id="formulario" data-title="Tus puntos">
                 <h2>¡Bienvenido al salón de la fama!</h2>
@@ -93,24 +95,36 @@
                 </form>
                 </div>
             </div>
-            <div class="panel" id="creditos" odata-title="Creditos">
-                Créditos de la aplicación
-                <h3>Bibliografía</h3>
-                <ul>
-                    <li><a href="https://i.ytimg.com/vi/syTLh93ZL74/maxresdefault.jpg">Barco Inicio</a></li>
-                </ul>
+            <div class="panel" id="creditos" data-title="Creditos">
+                <img alt="I.E.S. Virgen del Carmen" src="img/iconoInstituto.png" style="position: right; float: right;">
+                <!-- Creditos de la aplicacion -->
+                <h1>Créditos de la aplicación</h1>
+                <fieldset>
+                <div>
+                    <h3 class="textoCreditos">CICLO FORMATIVO DE GRADO SUPERIOR "DESARROLLO DE APLICACIONES MULTIPLATAFORMA".</h3><br>
+                    <h5 class="textoCreditos">CURSO 2016/2017</h5><br>
+                    <p class="textoCreditos"><b>Módulo:</b> Lenguajes de marcas y sistemas de gestión de información.</p>
+                    <p class="textoCreditos"><b>Proyecto:</b> "Battleship" / "Hundir la flota".</p>
+                    <p class="textoCreditos"><b>Profesor:</b> Juan G. Gutiérrez Marín.</p>
+                    <p class="textoCreditos"><b>Realizado por:</b> Óscar Caparrós Tortosa.</p>
+                    <h2>Bibliografía / Contenido</h2>
+                    <ul class="listaCreditos">
+                        <li><a class="elementoUl" href="https://www.github.com/ocaparrostortosa" target="_blank"><b>Github:</b> Óscar Caparrós Tortosa.</a></li>
+                        <li><a class="elementoUl" href="https://github.com/juangualberto" target="_blank"><b>Github:</b> Juan G. Gutiérrez Marín.</a></li>
+                        <li><a class="elementoUl" href="https://www.iesvirgendelcarmen.com" target="_blank">Página web instituto.</a></li>
+                        <li><a class="elementoUl" href="https://i.ytimg.com/vi/syTLh93ZL74/maxresdefault.jpg" target="_blank">Imagen del inicio.</a></li>
+                        <li><a class="elementoUl" href="https://images4.alphacoders.com/605/605199.jpg" target="_blank">Imagen fondo.</a></li>
+                        <li><a class="elementoUl" href="http://getbootstrap.com/" target="_blank">Bootstrap.</a></li>
+                        <li><a class="elementoUl" href="https://www.w3schools.com/js/" target="_blank">Javascript.</a></li>
+                        <li><a class="elementoUl" href="https://jquery.com/" target="_blank">Jquery.</a></li>
+                    </ul>
+                </div>
+                </fieldset>
             </div>
             <div class="panel" id="configuracion" data-title="Configuracion">
                 <h1>Configuración de la aplicación</h1>
                 <div class="container">
                     <form>
-                        <!-- <label for="" >First name:</label>
-                          <input type="text" name="firstname" value="Mickey" id="">
-                        <br>
-                        Last name:<br>
-                          <input type="text" name="lastname" value="Mouse">
-                        <br> -->
-                        
                         <!-- Por si quisieramos modificar el tiempo/disparos/étc. -->
                         
                         <!-- <h4>Configuración general:</h4>
@@ -153,9 +167,10 @@
                             <input class="form-control input-sm" id="numeroSubmarinos" type="number" min="0" max="5" placeholder="(0-5)" required>   
                         </div>                    
                         <div class="container">
-                            <!-- Uso h1 ya que en el simulador si usamos button se actualiza la pagina -->
-                            <h1 class="btn btn-default" onclick="guardarConfiguracion();">Guardar</h1>
-                            <h1 class="btn btn-default" onclick="establecerConfiguracionPredeterminada();">Configuración predeterminada</h1>
+                            <!-- Uso h1 ya que en el simulador si usamos button se actualiza la pagina.
+                                Gracias a bootstrap puedo simular un botón con una etiqueta h1.-->
+                            <h1 class="btn btn-success" onclick="guardarConfiguracion();">Guardar</h1>
+                            <h1 class="btn btn-info" onclick="establecerConfiguracionPredeterminada();">Configuración predeterminada</h1>
                         </div>
                         <br>
                  </form>
